@@ -5,12 +5,15 @@ exports.signup = function (req, res, next) {
 
   const password = req.body.password;
 
+  // TODO: more validation on email and password 
+
+  if(!email || !password) {return res.status(422).send({error: 'You must provide a password and email'})}
   // See  if the user with the given email exist
   User.findOne({ email: email }, function (err, existingUser) {
     if (err) {
       return next(err);
     }
-
+    
     // if a user with this email exist, return error
 
     if (existingUser) {
